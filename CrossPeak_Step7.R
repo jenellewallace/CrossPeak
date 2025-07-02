@@ -8,8 +8,12 @@ library(data.table)
 library(stringr)
 library(dplyr)
 library(tidyr)
-source('CrossPeak_functions.R')
-source('CrossPeak_parameters.R')
+args <- commandArgs(trailingOnly = TRUE)
+script_folder <- args[1]
+params_file <- args[2]
+source(file.path(script_folder, "CrossPeak_functions.R"))
+source(file.path(params_file))
+print(paste0('Using parameters file ', params_file))
 
 #Load necessary rds files from previous steps----
 species_spec_peaks <- readRDS(paste0(folder,'species_spec_peaks.rds'))

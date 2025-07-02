@@ -1,7 +1,7 @@
 #Folders----
-folder = 'Example_dataset/'
+folder = 'Example_dataset/' #should be the same as current_folder in run_CrossPeak_example.sh
 figure_folder = paste0(folder,'Figures/'); dir.create(figure_folder)
-output_folder = paste0(folder,'Output/'); dir.create(output_folder)
+output_folder = paste0(folder,'Output/'); dir.create(output_folder) #should be the same as output_folder in run_CrossPeak_example.sh
 
 #Parameters----
 # *May need to be modified, depending on your analysis* See README for full descriptions.

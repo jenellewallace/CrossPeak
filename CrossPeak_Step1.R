@@ -8,17 +8,21 @@ library(data.table)
 library(stringr)
 library(dplyr)
 library(tidyr)
-source('CrossPeak_functions.R')
-source('CrossPeak_parameters.R')
+args <- commandArgs(trailingOnly = TRUE)
+script_folder <- args[1]
+params_file <- args[2]
+source(file.path(script_folder, "CrossPeak_functions.R"))
+source(file.path(params_file))
+print(paste0('Using parameters file ', params_file))
 
 #Setup blacklists----
-human_blacklist = Signac::blacklist_hg38_unified
+human_blacklist_filename = 'human_blacklist.bed'
 chimp_blacklist_filename = 'chimp_blacklist.bed'
 rhesus_blacklist_filename = 'rhesus_blacklist.bed'
 species_blacklists <- vector(mode = 'list',length = length(species)); names(species_blacklists) <- species
 for (sp in species){
   if (sp == 'human'){
-    species_blacklists[[sp]] = human_blacklist
+    species_blacklists[[sp]] = import.bed(paste0(folder,human_blacklist_filename))
   } else if (sp == 'chimp'){
     species_blacklists[[sp]] = import.bed(paste0(folder,chimp_blacklist_filename))
   } else if (sp == 'rhesus'){
