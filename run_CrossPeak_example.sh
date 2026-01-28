@@ -49,6 +49,7 @@ fi
 # Step A: Run halLiftover for each species
 echo "Running Step A: halLiftover..."
 hal_liftover_log="${folder}/stepA_halLiftover.log"
+: > "$hal_liftover_log"
 for sp in "${species[@]}"; do
   input_file="${folder}/${sp}_summits.bed"
   output_file="${folder}/${sp}_summits_lo.bed"
@@ -85,6 +86,7 @@ fi
 # Step B: Run halLiftover for consensus summits
 echo "Running Step B: halLiftover for consensus summits..."
 hal_liftover_log="${folder}/stepB_halLiftover.log"
+: > "$hal_liftover_log"
 consensus_input_file="${folder}/consensus_summits.bed"
 if [[ ! -f "$consensus_input_file" ]]; then
   echo "Error: Input file $consensus_input_file not found. Ensure Steps 2 and 3 completed successfully."
@@ -120,6 +122,7 @@ fi
 # Step C: Run halLiftover for species-specific peaks and summits
 echo "Running Step C: halLiftover for species-specific peaks and summits..."
 hal_liftover_log="${folder}/stepC_halLiftover.log"
+: > "$hal_liftover_log"
 for source_species in "${species[@]}"; do
   for target_species in "${species[@]}"; do
     # Skip if source and target species are the same
@@ -188,6 +191,7 @@ fi
 # Step D: Reciprocal liftover for round 2 peaks
 echo "Running Step D: Reciprocal halLiftover for round 2 peaks..."
 hal_liftover_log="${folder}/stepD_halLiftover.log"
+: > "$hal_liftover_log"
 for source_species in "${species[@]}"; do
   for target_species in "${species[@]}"; do
     # Skip if source and target species are the same

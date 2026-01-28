@@ -56,7 +56,14 @@ for (sp in species){
                                  strand = strand(peaks_orig[[sp]]))
     genome(peaks_orig[[sp]]) = genome_names[[sp]]
   }
-  peaks[[sp]] <- labelPeaksWithPrefixes(peaks_orig[[sp]],sp, prefixes)
+  if (keep_orig_peak_names & is.null(peaks_orig[[sp]]$name)){
+    warning('The original peaks file must include a column called "name" if you want to retain the original peak names. No name column detected, defaulting to naming peaks with species prefixes.')
+  }
+  if (!keep_orig_peak_names | is.null(peaks_orig[[sp]]$name)){
+    peaks[[sp]] <- labelPeaksWithPrefixes(peaks_orig[[sp]],sp, prefixes, keep.extra.columns = FALSE)
+  } else {
+    peaks[[sp]] <- peaks_orig[[sp]]
+  }
   peaks[[sp]] <- suppressWarnings(excludeBlacklistPeaks(peaks[[sp]],species_blacklists[[sp]]))
   if (remove_non_standard_chr){
     non_std_chr = findNonStandardChromosomes(peaks[[sp]])

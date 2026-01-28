@@ -618,6 +618,17 @@ findPeaksThatOverlapTooMuch <- function(gr1,gr2, overlap_tol){
   return(overlap_names)
 }
 
+#Find overlaps within a single granges object
+findSelfOverlaps <- function(gr){
+      # Find overlaps within the same GRanges object
+      overlaps <- findOverlaps(gr, gr, ignore.strand = TRUE)
+      valid_overlaps <- overlaps[queryHits(overlaps) != subjectHits(overlaps)]
+      # Get indices of ranges that are not involved in valid overlaps
+      overlapLengths <- pmin(end(gr[queryHits(valid_overlaps)]), end(gr[subjectHits(valid_overlaps)])) -
+        pmax(start(gr[queryHits(valid_overlaps)]), start(gr[subjectHits(valid_overlaps)])) + 1
+      return(overlapLengths)
+}
+
 #Find overlaps from one gr (ex. peaks) to another (ex. a blacklist) and return a gr containing the rows of the overlapping peaks from the first list
 findSingleOverlaps <- function(gr1, gr2) {
   overlaps <- findOverlaps(gr1, gr2)

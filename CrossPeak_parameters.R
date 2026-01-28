@@ -6,6 +6,7 @@ output_folder = paste0(folder,'Output/'); dir.create(output_folder) #should be t
 #Parameters----
 # *May need to be modified, depending on your analysis* See README for full descriptions.
 peaks_format = 'bed' #'bed' or 'rds' - filename extension of original peaks
+keep_orig_peak_names = TRUE #logical for whether to keep a column called "name" in the original peaks files or to rename with prefixes for each species (if true will keep all orig metadata columns)
 summit_half_width = 5 #Half-width for summits so 11-bp summits will be used for round 1 liftovers
 peak_half_width = 250 #Half-width for peaks so peaks are 501-bp with summits exactly centered
 indel_tol = 5 #5-bp tolerance for summit adjustment during liftovers
